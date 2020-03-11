@@ -80,3 +80,11 @@ expression value is reliable, 1 means -- least reliable. Junction
 counts can be used as a proxy for gene count in differential
 expression analysis in those cases when gene's expression biased by
 opposite strand transcription.
+
+## References ##
+
+Please cite the following if you find the package useful.
+
+> Pomaznoy, M., Sethi, A., Greenbaum, J. et al. Identifying inaccuracies
+> in gene expression estimates from unstranded RNA-seq data. Sci Rep 9,
+> 16342 (2019). https://doi.org/10.1038/s41598-019-52584-w
