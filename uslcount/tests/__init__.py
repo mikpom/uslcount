@@ -11,8 +11,11 @@ gtf_file1 = pkg_file('uslcount', 'tests/data/IL24_FCMR.gtf')
 gtf_file2 = pkg_file('uslcount', 'tests/data/dynein_L_locus.gtf')
 gtf_file3 = pkg_file('uslcount', 'tests/data/IL24_FCMR_hg19.gtf')
 gtf_file4 = pkg_file('uslcount', 'tests/data/HNRNPH1.gtf')
+
 # containing only chrY annotation for warning tests
 gtf_file5 = pkg_file('uslcount', 'tests/data/chrY_annots.gtf')
+
+gtf_file6 = pkg_file('uslcount', 'tests/data/test.zero.gtf')
 
 # samtools view -hb source.bam chr1:206896367-206924281 > IL24_FCMR.bam
 # source bam is 51_C7_2007_RH_1_CD4_STIM
@@ -53,3 +56,9 @@ bam_file7 = pkg_file('uslcount', 'tests/data/bam/ERR315338.unsorted.bam')
 # source bam is SRR5424812 aligned versus
 # GRCh38_NCBI_analysis_set with Gencode v28 annotations
 bam_file8 = pkg_file('uslcount', 'tests/data/bam/dynein_L_st_pe.bam')
+
+# empty
+bam_file9 = pkg_file('uslcount', 'tests/data/bam/empty.bam')
+
+# empty
+bam_file10 = pkg_file('uslcount', 'tests/data/bam/simulated.bam')

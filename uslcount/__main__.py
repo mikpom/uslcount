@@ -1,6 +1,6 @@
 import sys
 import argparse
-from .bamutils import is_paired
+from .bamutils import is_paired, EmptyBamError
 from .main import count_bam, analyze_bam, write_count_res, \
     write_all_counts, write_analyze_res
 from .gdata import GenomicData
@@ -85,13 +85,17 @@ elif sys.argv[1] in ('analyze', 'count'):
 
     # Run analysis
     if sys.argv[1] == 'analyze':
-        res = analyze_bam(args.bam, gdat,
-                          ignore_intronic=ignore_intronic,
-                          ignore_secondary=ignore_secondary,
-                          ignore_supplementary=ignore_supplementary,
-                          ignore_qc_failed=ignore_qc_failed,
-                          mapq=args.mapq, 
-                          quiet=args.quiet)
+        try:
+            res = analyze_bam(args.bam, gdat,
+                              ignore_intronic=ignore_intronic,
+                              ignore_secondary=ignore_secondary,
+                              ignore_supplementary=ignore_supplementary,
+                              ignore_qc_failed=ignore_qc_failed,
+                              mapq=args.mapq, 
+                              quiet=args.quiet)
+        except EmptyBamError:
+            print('No alignments')
+            sys.exit()
         
     elif sys.argv[1] == 'count':
         if args.strand == 'N':

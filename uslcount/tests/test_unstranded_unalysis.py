@@ -6,6 +6,7 @@ from uslcount.main import count_bam, collect_aln_stats, analyze_bam, \
     write_analyze_res
 from uslcount.tests import IL24, FCMR, GATC
 from uslcount import tests
+from uslcount.bamutils import EmptyBamError
                 
 class test_aln_analysis(unittest.TestCase):
     gdat2 = GenomicData.build(tests.gtf_file2, quiet=True)
@@ -21,7 +22,12 @@ class test_full_analysis(unittest.TestCase):
     gdat2 = GenomicData.build(tests.gtf_file2, quiet=True)
     gdat3 = GenomicData.build(tests.gtf_file3, quiet=True)
     gdat4 = GenomicData.build(tests.gtf_file4, quiet=True)
+    gdat6 = GenomicData.build(tests.gtf_file6, quiet=True)
 
+    def test_empty_bam(self):
+        with self.assertRaises(EmptyBamError):
+            res = analyze_bam(tests.bam_file9, self.gdat1, strand='R', quiet=True)
+    
     def test_IL24_example(self):
         res = analyze_bam(tests.bam_file1, self.gdat1, strand='R', quiet=True)
 
@@ -88,3 +94,7 @@ class test_full_analysis(unittest.TestCase):
         self.assertEqual(np.sum(res['ust']>=0), res.shape[0])
         rec = res[res['gid']==GATC][0]
         self.assertGreater(rec['prob'], 0.0)
+
+    def test_for_zero_division(self):
+        res = analyze_bam(tests.bam_file10, self.gdat6, quiet=True)
+        self.assertEqual(res.shape[0], 1)

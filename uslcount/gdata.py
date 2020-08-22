@@ -287,14 +287,15 @@ class GenomicData(object):
                 jct_pos = trt.get_jct_positions()
                 if len(jct_pos)>0:
                     if lsizes is None: # single-end reads
-                        if trt_lens[trt.id]<rl:
+                        if trt_lens[trt.id]<=rl: # assuming very short transcripts
+                                                 # are not detected (FIXME?) 
                             pr = 0
                         else:
                             pr = jct_freq(jct_pos, trt_lens[trt.id], rl,
                                           overhang=sj_overhang)
                     else: # paired-end reads
                         if (trt_lens[trt.id] < 2*rl + minl) or \
-                           (trt_lens[trt.id] < rl):
+                           (trt_lens[trt.id] <= rl):
                             pr = 0
                         else:
                             pr = jct_freq_pe(jct_pos, trt_lens[trt.id], rl,

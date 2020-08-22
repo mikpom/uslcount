@@ -17,17 +17,16 @@ def jct_freq(jct_pos, trt_len, rl, overhang=3):
     N       : int, number of random permutations
     """
     if rl < overhang:
-        raise ValueError('Read length should be larger that overhand')
+        raise ValueError('Read length should be larger that overhang')
     if trt_len < rl:
         raise ValueError('Transcript length should be larger than read length')
     if len(jct_pos)==0:
         raise ValueError('At least one junction position should be provided')
     
-    # dict with position keys and {0 or 1} values depending whether read starting
-    # at this position this will cross a splice junction.
-    # If overhang is less than overhang it is 0.
+    # dict with position keys and {0 or 1} values depending whether read
+    # starting at this position this will cross a splice junction.  If
+    # overhang is less than overhang it is 0.
     _struct = defaultdict(lambda: 0)
-
     for pos in jct_pos:
         for pos in range(max(0, pos-rl+overhang), max(0, pos-overhang)):
             _struct[pos] = 1

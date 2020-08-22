@@ -1,7 +1,7 @@
 import pysam
 import unittest
 from uslcount import tests
-from uslcount.bamutils import read_pairs, get_lsize, get_skipped
+from uslcount.bamutils import read_pairs, get_lsize, get_skipped, lib_param
 
 class test_bam_parsing(unittest.TestCase):
     def test_positions(self):
@@ -35,6 +35,10 @@ class test_bam_parsing(unittest.TestCase):
             if (rp[0] and rp[0].query_name == 'ERR315338.5627716'):
                 cnt += 1
         self.assertEqual(cnt, 3)
+
+    # def test_lib_param(self):
+    #     rl, paired = lib_param(tests.bam_file9)
+    #     self.assertEqual(rl, 100)
 
 class test_pe_inserts(unittest.TestCase):
 

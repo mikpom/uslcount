@@ -2,6 +2,9 @@ import warnings
 import numpy as np
 import pysam
 
+class EmptyBamError(Exception):
+    pass
+
 def aln_ok(aln, ignore_secondary=True, ignore_supplementary=True,
            ignore_qc_failed=True, mapq=1):
     if aln.is_unmapped:
@@ -76,6 +79,9 @@ def lib_param(bamf):
         paired.add(aln.is_paired)
         if cnt > 10000:
             break
+
+    if len(_rl)==0:
+        raise EmptyBamError
 
     if len(paired)>1:
         raise ValueError('Mix of paired and unpaired alignments detected')
